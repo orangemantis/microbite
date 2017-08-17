@@ -1,6 +1,7 @@
 class Image:
-    def __init__(self, data):
-        self.process_image(data)
+    def __new__(self, data):
+        self._line_size = 5
+        return self.process_image(self, data)
 
     HEART = '("## ##"," ### ", " ### ","  #  ", "  #  ")'
     HEART_SMALL = '(""," # # ", " ### ","  #  ", "     ")'
@@ -69,5 +70,4 @@ class Image:
 
 
     def process_image(self, data):
-        #todo make this behave more like the actual api
-        print(str(data))
+        return [data[i:i + self._line_size] for i in range(len(data)) if i % self._line_size == 0]
